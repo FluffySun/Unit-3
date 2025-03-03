@@ -5,7 +5,7 @@ color mediumPurple = #A385E0; // Medium purple
 color darkPurple = #7045A0;   // Dark purple
 color white = (255);          // White
 color darkOutline = #7045A0;  // Dark outline color
-color black = (0);            // Black for pressed button
+color black = (0);            // Black
 
 // Variable for selected color
 color selectedColor = mediumPurple;
@@ -19,7 +19,7 @@ void setup() {
 void draw() {
   background(cream);
 
-  // Buttons using tactile function
+  // Buttons tactile
   tactile(100, 150, 50, lightPurple);
   fill(lightPurple);
   circle(100, 150, 100);
@@ -38,7 +38,7 @@ void draw() {
   square(300, 100, 400);
 }
 
-// Tactile function (Hover = White, Click = Black)
+// Tactile function 
 void tactile(int x, int y, int r, color outlineColor) {
   if (dist(x, y, mouseX, mouseY) < r) {
     stroke(white);  // Hover effect
@@ -47,7 +47,7 @@ void tactile(int x, int y, int r, color outlineColor) {
   }
 }
 
-// Mouse Pressed (Turn button outline black when clicked)
+// Mouse Pressed 
 void mousePressed() {
   if (dist(100, 150, mouseX, mouseY) < 50) {
     stroke(black);
@@ -60,7 +60,7 @@ void mousePressed() {
   }
 }
 
-// Mouse Released (Change selected color)
+// Mouse Release
 void mouseReleased() {
   if (dist(100, 150, mouseX, mouseY) < 50) {
     selectedColor = lightPurple;
