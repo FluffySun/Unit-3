@@ -55,12 +55,12 @@ void draw() {
   // Vertical slider line
   stroke(pink);
   strokeWeight (4);
-  line(785, 100, 785, 300);
+  line(950, 100, 950, 300);
 
   // Slider handle
   fill(pink);
   noStroke();
-  circle(785, sliderY, 20);
+  circle(950, sliderY, 20);
 
   // Thickness indicator
 strokeWeight(map(sliderY, 300, 100, 20, 1)); 
@@ -70,22 +70,26 @@ circle(450, 45, map(sliderY, 300, 100, 20, 40));
   
   //---Function buttons---
 //New Button
-strokeWeight(1);
-stroke(255);
-fill(black);
-rect(750, 50, 60, 30); 
+if (mouseX > 750 && mouseX < 810 && mouseY > 50 && mouseY < 80) {
+  fill(#CCCCCC);
+} else {
+  fill(black);
+}
+stroke(white);
+rect(750, 50, 60, 30);
 fill(white);
-textSize(14);
 text("New", 770, 70);
 
 //Save Button
-strokeWeight(1);
-stroke(255);
-fill(black);
+if (mouseX > 650 && mouseX < 710 && mouseY > 50 && mouseY < 80) {
+  fill(#CCCCCC);
+} else {
+  fill(black);
+}
+stroke(white);
 rect(650, 50, 60, 30);
 fill(white);
-textSize(14);
-text("Save", 670, 70); 
+text("Save", 670, 70);
 }
 
 void drawButton(int x, int y, int w, int h, String label) {
@@ -109,12 +113,14 @@ void drawButton(int x, int y, int w, int h, String label) {
 
 void mouseDragged() {
   //Move slider
-  if (mouseX > 775 && mouseX < 795 && mouseY > 100 && mouseY < 300) {
-    sliderY = constrain(mouseY, 100, 300); //WHAT IS CONSTRAIN?
-  }
+if (mouseX > 940 && mouseX < 960 && mouseY > 100 && mouseY < 300) {
+  if (mouseY < 100) sliderY = 100;
+  else if (mouseY > 300) sliderY = 300;
+  else sliderY = mouseY;
+}
 
   //draw inside canvas
-  if (mouseX > 25 && mouseX < 755 && mouseY > 100 && mouseY < 580) {
+if (mouseX > 25 && mouseX < 925 && mouseY > 100 && mouseY < 750) {
     stroke(selectedColor);
     strokeWeight(thickness);
     line(pmouseX, pmouseY, mouseX, mouseY);
@@ -163,15 +169,34 @@ void mouseReleased() {
 
 //---FUNCTION BUTTONS---
   //Clear canvas
-  if (mouseX > 650 && mouseX < 710 && mouseY > 25 && mouseY < 55) {
+if (mouseX > 750 && mouseX < 810 && mouseY > 50 && mouseY < 80) {
   background(cream);
-  
 }
 
   //Save button 
-  if (mouseX > 720 && mouseX < 780 && mouseY > 25 && mouseY < 55) {
-  saveFrame("Paint App-####.png"); //HOW TO DO LOAD BUTTON
+  if (mouseX > 650 && mouseX < 710 && mouseY > 50 && mouseY < 80) {
+  selectOutput("Choose a name for your new image file", "saveImage");
 }
+  
 //------Function Buttons End------
 
+}
+
+//---???SAVE FUNCTION???---
+void saveImage(File f) {
+  if (f != null) {
+    PImage canvas = get(25, 100, 900, 650); // This matches the draw area!
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f) {
+  if (f != null) {
+    int n = 0;
+    while (n < 10) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 25, 100); // Draw image on canvas only
+      n++;
+    }
+  }
 }
