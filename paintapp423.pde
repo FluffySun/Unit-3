@@ -186,20 +186,22 @@ void mouseReleased() {
 
   //---FUNCTION BUTTONS---
 //---HOW TO DO THIS?---
- //Load button
- if (mouseX>720  && mouseX<780  && mouseY>50 &&  mouseY<80 ) { //BUGFIX!!!
- selectInput("Pick an image to load", "openImage");
- 
- //---STAMPBUTTON?---
- if (mouseX > 900 && mouseX < 940 && mouseY > 50 && mouseY < 90) {
+// Load button
+if (mouseX > 720 && mouseX < 780 && mouseY > 50 && mouseY < 80) {
+  selectInput("Pick an image to load", "openImage");
+}
+
+//---Stamp button???---
+if (mouseX > 900 && mouseX < 940 && mouseY > 50 && mouseY < 90) {
   stampOn = !stampOn;
 }
 //---STAMPBUTTON---
- }
  
   //Clear canvas/New Button
   if (mouseX>750 && mouseX<810 && mouseY>50 && mouseY<80) {
-    background(cream);
+    fill(cream);
+   noStroke();
+   rect(25, 100, 900, 650);
   }
 
   //Save button
