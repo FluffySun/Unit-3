@@ -17,6 +17,9 @@ color selectedColor;
 float sliderY;
 float thickness;
 
+PImage stamp;
+boolean stampOn=false;
+
 void setup() {
   size(1000, 800);
   selectedColor=lightPurple;
@@ -24,6 +27,7 @@ void setup() {
   thickness = 5;
   background(cream);
   ellipseMode(CENTER); //just learned this in while loops (don't knowhow to use it)
+  stamp = loadImage("ul86ixgkx8wb1.jpg"); //STAMP file NAME HERE (WHY NOT WORK?)
 }
 
 void draw() {
@@ -50,7 +54,7 @@ void draw() {
   //No trailing Circles
   fill(cream);
   noStroke();
-  rect(770, 90, 30, 230);
+  rect(930, 90, 30, 230);
 
   // Vertical slider line
   stroke(pink);
@@ -61,12 +65,6 @@ void draw() {
   fill(pink);
   noStroke();
   circle(950, sliderY, 20);
-
-  // Thickness indicator
-  strokeWeight(map(sliderY, 300, 100, 20, 1));
-  stroke(black);
-  fill(selectedColor);
-  circle(450, 45, map(sliderY, 300, 100, 20, 40));
 
   //---Function buttons---
   //Load Button
@@ -101,6 +99,20 @@ void draw() {
   rect(650, 50, 60, 30);
   fill(white);
   text("Save", 670, 70);
+  
+  // Thickness indicator
+  strokeWeight(map(sliderY, 300, 100, 20, 1));
+  stroke(black);
+  fill(selectedColor);
+  circle(450, 45, map(sliderY, 300, 100, 20, 40));
+  
+  //---STAMP BUTTON VISUAL---
+  stroke(black);
+  strokeWeight(1);
+  fill(stampOn?#FFAAAA:white); 
+  rect(900, 50, 40, 40);
+  image(stamp, 900, 50, 40, 40);  
+  //Stamp???
 }
 
 //------Function buttons end------
@@ -119,7 +131,20 @@ void mouseDragged() {
     strokeWeight(thickness);
     line(pmouseX, pmouseY, mouseX, mouseY);
   }
+  
+  //REPLACE UPPER PART? ---STAMP?---
+  if (mouseX > 25 && mouseX < 925 && mouseY > 100 && mouseY < 750) {
+  if (stampOn) {
+    image(stamp, mouseX - 20, mouseY - 20, 40, 40);//draw stamp
+  } else {
+    stroke(selectedColor);
+    strokeWeight(thickness);
+    line(pmouseX, pmouseY, mouseX, mouseY);//normal
+  }
 }
+//---Stamp?---
+}
+
 void drawCircleButton(int x, int y, int r, color c) {
   noStroke();
   fill(c);
@@ -164,6 +189,12 @@ void mouseReleased() {
  //Load button
  if (mouseX>720  && mouseX<780  && mouseY>50 &&  mouseY<80 ) { //BUGFIX!!!
  selectInput("Pick an image to load", "openImage");
+ 
+ //---STAMPBUTTON?---
+ if (mouseX > 900 && mouseX < 940 && mouseY > 50 && mouseY < 90) {
+  stampOn = !stampOn;
+}
+//---STAMPBUTTON---
  }
  
   //Clear canvas/New Button
@@ -192,7 +223,7 @@ void openImage(File f) {
     int n = 0;
     while (n < 10) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 25, 100);
+      image(pic, 25, 100, 900, 650); //match canva
       n=n+1;
     }
   }
